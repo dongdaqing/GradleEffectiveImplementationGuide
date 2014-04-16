@@ -4,7 +4,7 @@ def printTaskName = { task ->
 
 task 'one' {
   // invoke doFist method to add action
-  doFirst printTaskName
+  doFirst(printTaskName)
 }
 
 // assign action through left-shift operator (<<)
@@ -16,4 +16,10 @@ task 'three' {
   // because we use the configuration closure
   // and forgot the << operator
   println "Running three"
+}
+
+defaultTasks 'one', 'two'
+
+task 'four' << {
+  println "Running four"
 }

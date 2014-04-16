@@ -1,0 +1,5 @@
+defaultTasks 'simple'
+
+task simple << { task ->
+  println "Running ${task.name}"
+}

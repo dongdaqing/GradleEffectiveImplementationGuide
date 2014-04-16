@@ -1,0 +1,42 @@
+import java.util.concurrent.Callable
+
+// Use String for file reference
+File wsdl = file('../src/wsld/sample.wsdl')
+
+// Use File object for file reference
+File xmlFile = new File('../src/xml/input/sample.xml')
+def inputXml = project.file(xmlFile)
+
+// Use URL instance to locate file
+URL url = new URL('file:///opt/local/share/java/gradle/bin/gradle')
+File gradleCommand = file(url)
+
+// Or a URI reference
+URI uri = new URI('file:///opt/local/share/java/gradle/bin/gradle')
+
+// Use a closure to determine the file or directory name
+def fileNames = ['src', 'web', 'config']
+def configDir = file {
+  fileNames.find { fileName ->
+    fileName.startsWith('config')
+  }
+}
+
+// Use Callable interface
+def source = file(
+  new Callable<String>() {
+    String call() {
+      'src'
+    }
+  }
+)
+
+// Check if file is a directory
+def dir = project.file(new File('config'), PathValidation.DIRECTORY)
+
+// Check if file or directory exists
+def readme = project.file('README', PathValidation.EXISTS)
+
+// Check File object is really a file
+def license = project.file('License.txt', PathValidation.FILE)
+

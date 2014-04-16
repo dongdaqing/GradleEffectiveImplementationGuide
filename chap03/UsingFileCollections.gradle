@@ -1,0 +1,12 @@
+// define a file collection using String instances
+ConfigurableFileCollection multiple = files('README', 'license.txt')
+
+// define a file collection using File objects
+ConfigurableFileCollection userFiles = files(new File('README'), new File('INSTALL'))
+
+// define a file collection using String instances and File objects combined
+ConfigurableFileCollection combined = files('README', new File('INSTALL'))
+
+// define a file collection using URI or URL object
+ConfigurableFileCollection urlFiles = files(new URI('file:./README'), new URL('file:./INSTALL'))
+

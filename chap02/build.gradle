@@ -1,0 +1,18 @@
+task helloWorld << { 
+  println 'Hello world.'
+}
+
+
+def printTaskName = { task ->
+  println "Run ${task.name}"
+}
+task second << printTaskName
+second.dependsOn {
+  project.tasks.findAll { task ->
+    task.name.contains 'f'
+  }
+}
+task first << printTaskName
+task beforeSecond << printTaskName
+
+defaultTasks 'second'

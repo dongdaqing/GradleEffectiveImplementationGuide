@@ -1,0 +1,34 @@
+defaultTasks 'simpler'
+
+task 'simple' << { task ->
+  println "Running ${task.name}"
+}
+
+def simplerTask = 'simpler'
+task (simplerTask) << { task ->
+  println "Running ${task.name}"
+}
+
+def generatedTask = 'generated'
+task "${generatedTask}" << { task ->
+  println "Running ${task.name}"
+}
+
+// Or use loops to create multiple tasks
+// 素晴らしい！感動的だ。
+['Dev', 'Acc', 'Prod'].each { environment ->
+  task "deployTo${environment}" << { task ->
+    println "Deploying to ${environment}"
+  }
+}
+
+def printTaskName = { task ->
+  println "Running ${task.name}"
+}
+// Use project variable
+project.tasks.add(name: 'first') << printTaskName
+
+// Let Gradle resolve tasks to project variable
+tasks.add(name: 'second', dependsOn: 'first') << printTaskName
+ 
+

@@ -1,0 +1,22 @@
+task archiveDist(type: Zip) {
+  from 'dist'
+  
+  // crate output filename: baseName-appendix-version-classifier.extension
+  baseName = 'distfiles'
+  appendix = 'archive'
+  version = '1.0'
+  classifier = 'sample'
+  extension = 'zip'
+}
+
+task archiveFiles(type: Zip) {
+  from 'dist'
+  // copy files to a directory inside the archive
+  into 'files'
+  // set destination directory
+  destinationDir = file("${buildDir}/zips")
+  // set complete filename
+  archiveName = 'dist-files.zip'
+}
+
+defaultTasks 'archiveFiles'

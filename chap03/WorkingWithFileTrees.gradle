@@ -1,0 +1,88 @@
+// Create file tree with base directory 'src/main'
+// and only include files with extension .java 
+def srcDir = fileTree('src/main').include('**/*.java')
+
+task first << { 
+  srcDir.visit { FileVisitDetails fileDetails ->
+    println "File name: ${fileDetails.name}"
+  }
+}
+
+// Use map with arguments to create a file tree.
+def resources = fileTree(dir: 'src/main', excludes: ['**/*.java', '**/*.groovy'])
+
+task second << {
+  resources.visit { FileVisitDetails fvd ->
+    if (fvd.directory) {
+      println "Entering directory ${fvd.relativePath}"
+    } else {
+      println "File name: ${fvd.name}"
+    }
+  }
+}
+
+def visitor = { fileTreeBase ->
+  fileTreeBase.visit { FileVisitDetails fvd ->
+    if (fvd.directory) {
+      println "Entering directory ${fvd.relativePath}"
+    } else {
+      println "File name: ${fvd.name}"
+    }
+  }
+}
+
+task third << {
+  visitor (resources)
+}
+
+// Create file tree with project directory as base 
+// directory and use method includes() on tree
+// object to include 2 files
+//FileTree base = fileTree('.')
+//base.includes ['README', 'INSTALL']
+//task fourth << { 
+//  visitor (base)
+//}
+
+// Use closure to create file tree
+//def javaFiles = fileTree {
+//  it.from('src/main/java')
+//  it.exclude('*.properties')
+//}
+def javaFiles = fileTree {
+  from 'src/main/java'
+  exclude '*.properties'
+}
+			 
+def sources = fileTree {
+  from 'src'
+}
+
+//def javaFiles = sources.matching {
+//  include '**/*.java'
+//}
+
+def nonJavaFiles = sources.matching {
+  exclude '**/*.java'
+}
+
+def nonLanguageFiles = sources.matching {
+  exclude '**/*.scala', '**/*.groovy', '**/*.java'
+}
+
+def modifiedLastWeek = sources.matching {
+  lastWeek = new Date() - 7
+  include {
+    FileTreeElement file ->
+      file.lastModified > lastWeek.time
+  }
+}
+
+task fifth << { 
+  visitor (javaFiles)
+}
+
+def testFiles = fileTree(dir: 'src/test')
+task sixth << {
+  visitor testFiles
+}

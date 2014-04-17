@@ -1,0 +1,26 @@
+task copyAndRename(type: Copy) {
+  from 'src'
+  
+  rename { String fileName ->
+    if (fileName.endsWith('txt')) {
+      String original = fileName
+      String originalWithoutExtension = original - '.txt'
+      originalWithoutExtension + '.text'
+    }
+  }
+
+  into 'dist'
+}
+
+task copyAndRenameRegEx(type: Copy) {
+  from 'src'
+  // change extension .txt to .text
+  rename '(.+).txt', '$1.text'
+  // rename files that start with sample-
+  // and remove the sample-part
+  rename ~/^sample-(.*)/, '$1' 
+  into 'dist'
+} 
+
+defaultTasks 'copyAndRenameRegEx'
+

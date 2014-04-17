@@ -1,0 +1,17 @@
+task(convert) {
+  def source = new File('source.xml')
+  def output = new File('output.txt')
+  // define input file
+  inputs.file source
+  // define output file
+  outputs.file output
+  doLast {
+    def xml = new XmlSlurper().parse(source)
+    output.withPrintWriter { writer ->
+      xml.language.each { lang ->
+	writer.println "${lang}"
+      }
+    }
+    println "Converted ${source.name} to ${output.name}"
+  }
+}

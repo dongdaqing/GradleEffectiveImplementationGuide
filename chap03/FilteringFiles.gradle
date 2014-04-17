@@ -1,0 +1,22 @@
+import org.apache.tools.ant.filters.*
+
+task filterFiles(type: Copy) {
+  from 'src/filter.txt'
+  into 'dist'
+  // Closure to replace each line
+  filter { line ->
+    "I say: ${line}"
+  }
+  // Use ANT filter ReplaceTokens
+  filter(ReplaceTokens, tokens: [message: 'Hello'])
+}
+
+task expandFiles(type: Copy) {
+  from 'src/expand.txt'
+  into 'dist'
+  expand languages: ['Java', 'Groovy', 'Scala']
+  rename 'expand.txt', 'expanded.txt'
+}
+
+
+defaultTasks 'expandFiles'

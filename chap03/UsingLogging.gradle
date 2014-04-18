@@ -1,0 +1,58 @@
+def logDebug = { msg ->
+  logger.debug msg
+  logger.log LogLevel.DEBUG, msg
+}
+def logInfo = { msg ->
+  logger.info msg
+  logger.log LogLevel.INFO, msg
+}
+def logLifecycle = { msg ->
+  logger.lifecycle msg
+  logger.log LogLevel.LIFECYCLE, msg
+}
+def logWarn = { msg ->
+  logger.warn msg
+  logger.log LogLevel.WARN, msg
+}
+def logQuiet = { msg ->
+  logger.quiet msg
+  logger.log LogLevel.QUIET, msg
+}
+def logError = { msg ->
+  logger.error msg
+  logger.log LogLevel.ERROR, msg
+}
+
+
+task logLevels << {
+  // Simple logging sample
+  logDebug     'debug: Most versbose logging level.'
+  logInfo      'info: Use for inforation messages.'
+  logLifecycle 'livecycle: Progress lifecycle messages.'
+  logWarn      'warn: Most vervose logging level.'
+  logQuiet     'quiet: Most vervose logging level.'
+  logError     'error: Most vervose logging level.'
+}
+
+class Simple {
+  private static final Logger logger = Logging.getLogger('Simple')
+  int square(int value) {
+    int square = value * value
+    logger.lifecycle "Calculate square for ${value} = ${square}"
+    return square
+  }
+}
+
+logger.lifecycle 'Running sample Gradle build.'
+
+task useSimple {
+  doFirst {
+    logger.lifecycle 'Running useSimple'
+  }
+  doLast {
+    new Simple().square(3)
+  }
+}
+
+defaultTasks 'logLevels'
+

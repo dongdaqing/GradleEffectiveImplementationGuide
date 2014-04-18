@@ -1,0 +1,31 @@
+/*
+sourceSets {
+  main {
+    java {
+      srcDir 'src/java'
+    }
+    resources {
+      srcDir 'src/resources'
+    }
+  }
+}
+*/
+apply plugin: 'java'
+task sourceSetJavaProperties << {
+  println "sourceSets.main.output.classesDir=${sourceSets.main.output.classesDir}"
+  println "sourceSets['main'].output.classesDir=${sourceSets['main'].output.classesDir}"
+  sourceSets {
+    println "sourceSets{main.output.classesDir}=${main.output.classesDir}"  
+  }
+  sourceSets {
+    main {
+      println "sourceSets{main{output.classesDir}}=${output.classesDir}"  
+    }
+  }
+  // Iterate over the source sets
+  sourceSets.all {
+    println "sourceSet: ${name}"
+  }
+}
+
+defaultTasks 'sourceSetJavaProperties'

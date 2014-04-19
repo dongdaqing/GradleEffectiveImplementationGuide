@@ -1,0 +1,24 @@
+apply plugin: 'java'
+
+sourceSets {
+  api
+  main {
+    compileClasspath = compileClasspath + files(api.output.classesDir)
+  }
+}
+
+classes.dependsOn apiClasses
+
+task show << {
+  // Iterate over the source sets
+  sourceSets.all {
+    println "sourceSet: ${name}"
+    println "    output.classesDir=${output.classesDir}"
+    println "    java.srcDirs=${java.srcDirs}"
+    it.java.each {
+      println "        ${it.name}"
+    }
+  }
+}
+
+defaultTasks 'show'

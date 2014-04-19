@@ -26,6 +26,21 @@ task sourceSetJavaProperties << {
   sourceSets.all {
     println "sourceSet: ${name}"
   }
+  //
+  sourceSets {
+    main {
+      println "java.srcDirs         = ${java.srcDirs}"
+      println "resources.srcDirs    = ${resources.srcDirs}"
+      println "java.files.name      = ${java.files.name}"
+      println "allJava.files.name   = ${allJava.files.name}"
+      println "resources.files.name = ${resources.files.name}"
+      println "allSource.files.name = ${allSource.files.name}"
+      println "output.classesDir    = ${output.classesDir}"
+      println "output.resourcesDir  = ${output.resourcesDir}"
+      println "output.files         = ${output.files}"
+    }
+  }
 }
+
 
 defaultTasks 'sourceSetJavaProperties'

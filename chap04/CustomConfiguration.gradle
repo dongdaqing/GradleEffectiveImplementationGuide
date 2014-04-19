@@ -1,0 +1,65 @@
+apply plugin: 'java'
+
+/*
+project.sourceSets({
+                     main({
+                            java({
+                                   srcDir('src/java')
+                                 })
+                            resources({
+                                        srcDir('resources/java')
+                                      })
+                          })
+                   })
+*/
+
+project.sourceSets {
+  main {
+    java {
+      srcDir 'src/java'
+    }
+    resources {
+      srcDir 'resources/java'
+    } 
+  }
+  test {
+    java {
+      srcDir 'test/unit/java'
+    }
+    resources {
+      srcDir 'resources/test'
+    } 
+  }
+  'integration-test' {
+    java {
+      srcDir 'test/integration/java'
+    }
+    resources {
+      srcDir 'resources/test'
+    } 
+  }
+}
+
+task prepare << {
+  sourceSets {
+    main {
+      java {
+        srcDir.mkdirs()
+      }
+      resources {
+        srcDir.mkdirs()
+      }
+    }
+  }
+}
+
+task compile(dependsOn: 'prepare') {
+  println("compiling ...")
+}
+
+task show << {
+  println "sourceSets.main.java.srcDirs=${sourceSets.main.java.srcDirs}"
+  println "sourceSets.main.resources.srcDirs=${sourceSets.main.resources.srcDirs}"
+}
+
+defaultTasks 'compile'

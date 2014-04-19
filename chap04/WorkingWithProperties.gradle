@@ -1,0 +1,40 @@
+apply plugin: 'java'
+
+archivesBaseName = 'gradle-sample'
+version = '1.0'
+sourceCompatibility = JavaVersion.VERSION_1_6
+
+manifest = manifest {
+  attributes(
+    'Implementation-Version' : version,
+             'Implementation-Title' : 'Gradle Sample'
+  )
+}
+
+// Need to explicitly set manifest on jar task, but should be automatic.
+jar.manifest.from manifest
+
+sourceSets {
+  api
+  main {
+    compileClasspath = compileClasspath + files(api.output.classesDir)
+  }
+}
+
+classes.dependsOn apiClasses
+
+[compileJava, compileTestJava].each {
+    it.options.encoding = 'UTF-8'
+    it.options.compilerArgs += ['-source', '1.7', '-target', '1.7']
+}
+
+
+
+
+defaultTasks 'showConvention'
+
+task showConvention << {
+  println sourceSets.main.name
+  println project.sourceSets.main.name
+  println project.convention.plugins.java.sourceSets.main.name
+}

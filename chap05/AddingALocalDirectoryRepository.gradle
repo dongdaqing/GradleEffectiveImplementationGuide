@@ -1,0 +1,9 @@
+apply plugin: 'java'
+
+repositories {
+  flatDir(dir: '../lib', name: 'libs directory')
+  flatDir {
+    dirs '../project_files', '/volumes/shared-libs'
+    name = 'All dependency directories' 
+  }
+}

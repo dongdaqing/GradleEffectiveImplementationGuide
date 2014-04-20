@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+repositories {
+  ivy {
+    url = 'http://intranet/ivy-repo'
+    name = 'Our repository'
+  }
+  ivy {
+    url = 'http://intranet/ivy-snapshots'
+    layout = 'maven'
+  }
+  ivy {
+    url = 'http://intranet/repository'
+    layout = 'gradle'
+  }
+  ivy {
+    credentials {
+      username = usernameSecuredRepo
+      password = passwordSecuredRepo
+    }
+    url = 'http://intranet/custom'
+    // Pattern to resolve Ivy descriptor files.
+    ivyPatterns '[module]/[revision]/ivy.xml'
+    // Pattern to resolve files.
+    artifactPatterns '[module]/[revision]/[artifact](.[ext])'
+  }
+}
+
+

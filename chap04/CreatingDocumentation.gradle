@@ -1,0 +1,28 @@
+apply plugin: 'java'
+
+archivesBaseName = 'gradle-sample'
+version = '1.0'
+sourceCompatibility = JavaVersion.VERSION_1_6
+
+[compileJava, compileTestJava].each {
+    it.options.encoding = 'UTF-8'
+    it.options.compilerArgs += ['-source', '1.7', '-target', '1.7']
+}
+
+sourceSets {
+  api
+  main {
+    compileClasspath = compileClasspath + files(api.output.classesDir)
+  }
+}
+
+classes.dependsOn apiClasses
+
+javadoc {
+  source sourceSets.api.allJava
+  title = 'Gradle Sample Project'
+  options.links = ['http://docs.oracle.com/javase/6/docs/api/']
+  options.footer = "Generated on ${new Date().format('dd MMM yyyy')}"
+  options.header = "Documentation for version ${project.version}"
+}
+

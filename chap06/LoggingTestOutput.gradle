@@ -1,0 +1,41 @@
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // Add at least version 4.8 of JUnit as dependency
+  testCompile 'junit:junit:[4.8,)'
+}
+
+test {
+  // Add System property to running tests.
+  systemProperty 'sysProp', 'value'
+
+  // Use the following JVM arguments for each test process.
+  jvmArgs '-Xms256m', '-Xmx512m'
+
+  // Enable debugging mode.
+  debug = true
+
+  // Ignore any test failures and don't fail the build.
+  ignoreFailure = true
+
+  // Enable assertions for test with the assert keyword.
+  enableAssertions = true
+
+  //
+  forkEvery = 10
+  maxParallelForks = 4
+
+  // Disable automatic inspections
+  scanForTestClasses = false;
+
+  // Include test classes
+  include '**/*Test.class', '**/*Spec.class'
+
+  // Exclude some test classes
+  exclude '**/Abstract*.class', '**/Run*.class'
+}
+

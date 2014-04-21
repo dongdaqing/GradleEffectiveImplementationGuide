@@ -1,7 +1,19 @@
 apply(plugin: 'java')
 
-task info(description: 'Show Gradle version') { 
-  doLast({
-	   println("Current Gradle version: ${project.gradle.gradleVersion}")
-	 })
+task info(type:InfoTask) {
+  prefix = 'Running Gradle'
 }
+
+defaultTasks 'info'
+
+class InfoTask extends DefaultTask {
+  @Optional
+  String prefix = 'Current Gradle version'
+
+  @TaskAction
+  def info() {
+    println("${prefix}: ${project.gradle.gradleVersion}")
+  }
+
+}
+

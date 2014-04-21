@@ -16,5 +16,5 @@ task runJava(type: JavaExec) {
   // We can pass arguments to the main() method
   // of gradle.sample.SampleApp
   args('mainMethodArgument', 'notUsed')
-
 }
+

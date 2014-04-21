@@ -1,0 +1,8 @@
+import sample.InfoTask
+
+defaultTasks 'info'
+
+task info(type: InfoTask) {
+  prefix = 'Running Gradle'
+}
+

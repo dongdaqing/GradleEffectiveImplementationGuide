@@ -1,0 +1,16 @@
+apply(plugin: 'groovy')
+
+import sample.InfoTask
+
+defaultTasks 'info'
+
+repositories.mavenCentral()
+
+dependencies {
+  testCompile 'junit:junit:4.10'
+}
+
+task info(type: InfoTask) {
+  prefix = 'Running Gradle'
+}
+

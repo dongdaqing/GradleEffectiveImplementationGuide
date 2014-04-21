@@ -1,8 +1,11 @@
 *~
 .gradle
-/build
+build/
+dist/
 *.classpath
 *.project
 *.settings
+*.jar
+*.zip
 /bin
 .nb-gradle

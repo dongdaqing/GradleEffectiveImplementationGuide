@@ -1,0 +1,23 @@
+apply plugin: 'jetty'
+
+httpPort = 8060
+
+configurations {
+  jettyAdditionalLibs
+}
+
+dependencies {
+  jettyAdditionalLibs 'org.slf4j:slf4j-simple:1.6.6'
+}
+
+// Properties for stopping Jetty with jettyStop
+stopPort = 8109
+stopeKey = JettyStop
+
+jettyRun {
+  contextPath = 'sample'
+  reload = 'automatic'
+  scanIntervalSeconds = 10
+  // Extra libraries for Jetty runtime.
+  additionalRuntimeJars configurations.jettyAdditionalLibs
+}

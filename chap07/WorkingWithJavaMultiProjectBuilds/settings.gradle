@@ -1,0 +1,3 @@
+// settings.gradle
+
+include 'common', 'services:sample', 'web'

@@ -1,0 +1,65 @@
+defaultTasks 'printInfo'
+
+allprojects {
+  task printInfo << {
+    println "This is ${project.name}"
+  }
+}
+
+subprojects {
+  afterEvaluate { project ->
+    if (project.hasLeaves) { 
+      project.printInfo << { 
+	println 'Has leaves'
+      }
+    }
+  }
+  printInfo << {
+    println "Can be planted"
+  }
+}
+
+project(':tree') { 
+  ext.hasLeaves = true
+}
+
+project(':flower') {
+  ext.hasLeaves = false
+  printInfo.doLast { 
+    println 'Smells nice'
+  }
+  printInfo.dependsOn ':tree:printInfo'
+}
+
+
+configure(allprojects.findAll { it.name.startsWith('f') }) {
+  printInfo << {
+    println 'Looks beautiful'
+  }
+}
+
+/*
+task printInfo << {
+  println "This is ${project.name}"
+}
+project(':flower') {
+  task printInfo << {
+    println "This is ${project.name}"
+  }
+}
+project(':tree') {
+  task printInfo << {
+    println "This is ${project.name}"
+  }
+}
+*/
+
+
+
+/*
+allprojects {
+  task printInfo << {
+    println "This is ${project.name}"
+  }
+}
+*/

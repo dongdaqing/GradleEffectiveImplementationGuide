@@ -1,0 +1,8 @@
+apply plugin: sample.InfoPlugin
+
+// Configure the InfoPlugin through the InfoPluginExtension.
+info {
+  prefix = 'Gradle version'
+}
+// Or ino.prefix = 'Gradle version'
+

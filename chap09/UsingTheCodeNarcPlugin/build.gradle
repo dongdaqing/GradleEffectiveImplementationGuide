@@ -1,0 +1,33 @@
+apply {
+  plugin 'groovy'
+  plugin 'codenarc'
+}
+
+repositories {
+  mavenCentral()
+}
+
+codenarc {
+  // Change version of CodeNarc.
+  toolVersion = 0.17
+
+  // Change name of configuration file. Default value
+  // is file('config/codenarc/codenarc.xml')
+  configFile = file('config/codenarc/rules.groovy')
+
+  reportsDir = file("${reporting.baseDir}/codenar-output")
+}
+
+tasks.withType(CodeNarc) { task ->
+  reports {
+    // Enable text formt.
+    text.enable = true
+
+    // Configure XML output.
+    xml {
+      enabled = true
+      // Change destination file.
+      destination = file("${codnarc.reportsDir}/${task.name}.xml")
+    }
+  }
+}

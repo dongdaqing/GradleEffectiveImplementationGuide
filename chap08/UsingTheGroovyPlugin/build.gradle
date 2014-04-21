@@ -1,0 +1,31 @@
+apply plugin: 'groovy'
+
+version = '1.0'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile group: 'org.codehaus.groovy', name: 'groovy', version: '1.8.6'
+}
+
+groovydoc {
+  header = 'GroovyDoc for sample project'
+  footer = 'Generated documentation - $version'
+  docTitle = 'GroovyDoc Title'
+  windowTitle = docTitle
+  use = true // Create class and package usagepages
+  // Exclude files, use include to include files
+  exclude '**/*Doc.groovy'
+}
+
+task groovySourceSetProperties << {
+  sourceSets {
+    main {
+      println "groovy.srcDirs  ${groovy.srcDirs}"
+      println "groovy.files    ${groovy.files}"
+      println "allGroovy.files ${allGroovy.files.name}"
+    }
+  }
+}

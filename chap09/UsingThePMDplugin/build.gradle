@@ -1,0 +1,42 @@
+apply {
+  plugin 'java'
+  plugin 'pmd'
+}
+
+pmd.toolVersion = 4.2
+
+repositories {
+  mavenCentral()
+}
+
+sourceSets {
+  util
+}
+
+pmd {
+  // Don't fail the build process when
+  // rule violations are found.
+  ignoreFailures = true
+  reportsDir = file("${reporting.baseDir}/pmd-output")
+  // Add rules
+  ruleSets 'design', 'braces'
+  // Or use property syntax.
+  //ruleSets = ['design', 'braces']
+  
+  // Set rule set file.
+  ruleSetFiles = [file('config/pmd/customRules.xml')]
+  // Or use method.
+  //ruleSetFiles file('config/pmd/customRules.xml')
+}
+
+configure(tasks.withType(Pmd)) {
+  // Disable HTML report generation for all PMD tasks.
+  reports.html.enabled = false
+}
+
+// Change output file for the single task pmdMain.
+pmdMain {
+  reports {
+    xml.destination = file("${pmd.reportsDir}/pmd.xml")
+  }
+}

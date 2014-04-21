@@ -1,0 +1,32 @@
+apply {
+  plugin 'java'
+  plugin 'findbugs'
+}
+
+repositories {
+  mavenCentral()
+}
+
+
+findbugs {
+  toolVersion = '2.0.0'   // Default version with Gradle 1.1
+  ignoreFailures = true
+}
+
+findbugsMain {
+  ignoreFailures = false
+  reports {
+    html {
+      enabled = true
+      // Change output file name.
+      destination = "${findbugs.reportsDir}/findbugs.html"
+    }
+    // Only on report (xml or html) cna be active.
+    xml.enabled = !html.enabled
+  }
+}
+
+sourceSets {
+  webservice
+}
+

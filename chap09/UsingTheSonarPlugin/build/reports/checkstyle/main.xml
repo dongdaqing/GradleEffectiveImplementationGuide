@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.4">
+<file name="C:\Users\qcq0264\git\GradleEffectiveImplementationGuide\chap09\UsingTheCheckstylePlugin\src\main\java\gradle\sample\JavaSample.java">
+<error line="0" severity="error" message="Missing package-info.java file." source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocPackageCheck"/>
+<error line="0" severity="error" message="ファイルが新しい行で終了していません。" source="com.puppycrawl.tools.checkstyle.checks.NewlineAtEndOfFileCheck"/>
+</file>
+</checkstyle>

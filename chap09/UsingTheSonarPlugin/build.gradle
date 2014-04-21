@@ -1,0 +1,7 @@
+apply {
+  plugin 'java'
+  plugin 'sonar'
+}
+
+sonarAnalyze.dependsOn 'build'
+

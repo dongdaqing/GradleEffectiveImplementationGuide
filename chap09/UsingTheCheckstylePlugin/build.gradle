@@ -1,0 +1,27 @@
+apply {
+  plugin 'java'
+  plugin 'checkstyle'
+}
+
+repositories {
+  mavenCentral()
+}
+
+sourceSets {
+  api
+}
+
+checkstyle {
+  toolVersion = 5.4
+  configFile = file('config/checkstyle/sun_checks.xml')
+  ignoreFailures = true
+  configProperties = [tabWidth: 10]
+}
+
+// Reconfigure the checkstyleTest task
+checkstyleTest {
+  configFile = file('config/checkstyle/test.xml')
+  ignoreFailure = false;
+}
+
+

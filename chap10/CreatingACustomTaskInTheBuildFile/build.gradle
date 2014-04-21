@@ -1,0 +1,7 @@
+apply(plugin: 'java')
+
+task info(description: 'Show Gradle version') { 
+  doLast({
+	   println("Current Gradle version: ${project.gradle.gradleVersion}")
+	 })
+}
